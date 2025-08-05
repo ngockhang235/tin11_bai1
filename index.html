@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Lịch Sử Công Nghệ Thông Tin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; frame-ancestors *;">
+    <meta http-equiv="X-Frame-Options" content="ALLOWALL">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .timeline-item {
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .timeline-line {
+            background: linear-gradient(180deg, #3B82F6 0%, #8B5CF6 20%, #EC4899 40%, #10B981 60%, #F59E0B 80%, #6366F1 100%);
+        }
+        
+        .modal-backdrop {
+            backdrop-filter: blur(10px);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .timeline-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; width: 100%; height: 100vh; background: #f8fafc; font-family: 'Inter', sans-serif;">
+    <!-- Main Slide Container -->
+    <div class="w-full h-full bg-white overflow-hidden" style="width: 100%; height: 100vh; min-height: 600px;">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4" style="background: linear-gradient(90deg, #2563eb 0%, #9333ea 100%);">
+            <h1 class="text-xl font-bold text-center mb-2" style="color: white; font-size: 20px; margin-bottom: 8px;">
+                🖥️ Lịch Sử Phát Triển Công Nghệ Thông Tin
+            </h1>
+            <p class="text-center text-sm" style="color: #ddd6fe; font-size: 14px;">
+                Khám phá hành trình phát triển của máy tính và công nghệ thông tin
+            </p>
+        </div>
+
+        <!-- Timeline Container -->
+        <div class="p-4 overflow-x-auto overflow-y-hidden" style="padding: 16px; height: calc(100% - 100px); overflow-x: auto; overflow-y: hidden;">
+            <div class="relative w-full h-full flex items-center justify-center">
+                <!-- Timeline Line (Horizontal) -->
+                <div class="absolute top-1/2 left-8 right-8 h-2 timeline-line rounded-full transform -translate-y-1/2" style="position: absolute; top: 50%; left: 32px; right: 32px; height: 8px; background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 20%, #EC4899 40%, #10B981 60%, #F59E0B 80%, #6366F1 100%); border-radius: 9999px; transform: translateY(-50%);"></div>
+                
+                <!-- Timeline Items (Horizontal Layout) -->
+                <div class="flex items-center justify-between w-full px-8 relative z-10" style="min-width: 1200px;">
+                    
+                    <!-- 1946 - ENIAC (Above timeline) -->
+                    <div class="flex flex-col items-center">
+                        <div class="timeline-item bg-white rounded-lg p-3 shadow-lg border-2 border-blue-200 hover:border-blue-400 text-center w-32 cursor-pointer mb-6" onclick="openModal('eniac')">
+                            <div class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">1946</div>
+                            <div class="text-xl mb-1">💻</div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-1">ENIAC</h3>
+                            <p class="text-xs text-gray-600">Máy tính điện tử đầu tiên</p>
+                        </div>
+                        <!-- Connecting line -->
+                        <div class="w-0.5 h-6 bg-blue-500"></div>
+                        <!-- Timeline dot -->
+                        <div class="w-4 h-4 bg-blue-500 rounded-full border-4 border-white shadow-lg pulse-animation relative z-20"></div>
+                    </div>
+
+                    <!-- 1971 - Microprocessor (Below timeline) -->
+                    <div class="flex flex-col items-center">
+                        <!-- Timeline dot -->
+                        <div class="w-4 h-4 bg-purple-500 rounded-full border-4 border-white shadow-lg pulse-animation relative z-20"></div>
+                        <!-- Connecting line -->
+                        <div class="w-0.5 h-6 bg-purple-500"></div>
+                        <div class="timeline-item bg-white rounded-lg p-3 shadow-lg border-2 border-purple-200 hover:border-purple-400 text-center w-32 cursor-pointer mt-6" onclick="openModal('microprocessor')">
+                            <div class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">1971</div>
+                            <div class="text-xl mb-1">🔧</div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-1">Intel 4004</h3>
+                            <p class="text-xs text-gray-600">Vi xử lý đầu tiên</p>
+                        </div>
+                    </div>
+
+                    <!-- 1981 - Personal Computer (Above timeline) -->
+                    <div class="flex flex-col items-center">
+                        <div class="timeline-item bg-white rounded-lg p-3 shadow-lg border-2 border-pink-200 hover:border-pink-400 text-center w-32 cursor-pointer mb-6" onclick="openModal('pc')">
+                            <div class="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">1981</div>
+                            <div class="text-xl mb-1">🖥️</div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-1">IBM PC</h3>
+                            <p class="text-xs text-gray-600">Máy tính cá nhân</p>
+                        </div>
+                        <!-- Connecting line -->
+                        <div class="w-0.5 h-6 bg-pink-500"></div>
+                        <!-- Timeline dot -->
+                        <div class="w-4 h-4 bg-pink-500 rounded-full border-4 border-white shadow-lg pulse-animation relative z-20"></div>
+                    </div>
+
+                    <!-- 1991 - Internet (Below timeline) -->
+                    <div class="flex flex-col items-center">
+                        <!-- Timeline dot -->
+                        <div class="w-4 h-4 bg-green-500 rounded-full border-4 border-white shadow-lg pulse-animation relative z-20"></div>
+                        <!-- Connecting line -->
+                        <div class="w-0.5 h-6 bg-green-500"></div>
+                        <div class="timeline-item bg-white rounded-lg p-3 shadow-lg border-2 border-green-200 hover:border-green-400 text-center w-32 cursor-pointer mt-6" onclick="openModal('internet')">
+                            <div class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">1991</div>
+                            <div class="text-xl mb-1">🌐</div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-1">World Wide Web</h3>
+                            <p class="text-xs text-gray-600">Internet kết nối thế giới</p>
+                        </div>
+                    </div>
+
+                    <!-- 2007 - Mobile (Above timeline) -->
+                    <div class="flex flex-col items-center">
+                        <div class="timeline-item bg-white rounded-lg p-3 shadow-lg border-2 border-orange-200 hover:border-orange-400 text-center w-32 cursor-pointer mb-6" onclick="openModal('mobile')">
+                            <div class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">2007</div>
+                            <div class="text-xl mb-1">📱</div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-1">Smartphone</h3>
+                            <p class="text-xs text-gray-600">Điện thoại thông minh</p>
+                        </div>
+                        <!-- Connecting line -->
+                        <div class="w-0.5 h-6 bg-orange-500"></div>
+                        <!-- Timeline dot -->
+                        <div class="w-4 h-4 bg-orange-500 rounded-full border-4 border-white shadow-lg pulse-animation relative z-20"></div>
+                    </div>
+
+                    <!-- 2010s - AI (Below timeline) -->
+                    <div class="flex flex-col items-center">
+                        <!-- Timeline dot -->
+                        <div class="w-4 h-4 bg-indigo-500 rounded-full border-4 border-white shadow-lg pulse-animation relative z-20"></div>
+                        <!-- Connecting line -->
+                        <div class="w-0.5 h-6 bg-indigo-500"></div>
+                        <div class="timeline-item bg-white rounded-lg p-3 shadow-lg border-2 border-indigo-200 hover:border-indigo-400 text-center w-32 cursor-pointer mt-6" onclick="openModal('ai')">
+                            <div class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">2010s</div>
+                            <div class="text-xl mb-1">🤖</div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-1">AI</h3>
+                            <p class="text-xs text-gray-600">Trí tuệ nhân tạo</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto slide-in">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 id="modal-title" class="text-3xl font-bold text-gray-800"></h2>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+                </div>
+                
+                <div id="modal-image" class="mb-6 text-center">
+                    <!-- Image will be inserted here -->
+                </div>
+                
+                <div id="modal-content" class="text-gray-700 leading-relaxed">
+                    <!-- Content will be inserted here -->
+                </div>
+                
+                <div class="mt-6 flex justify-center">
+                    <button id="speak-btn" onclick="speakContent()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors">
+                        🔊 Nghe mô tả bằng tiếng Việt
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const timelineData = {
+            eniac: {
+                title: "💻 ENIAC (1946)",
+                image: `<div class="w-64 h-48 mx-auto rounded-lg shadow-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-6xl">💻</div>`,
+                content: `
+                    <p class="mb-4"><strong>ENIAC (Electronic Numerical Integrator and Computer)</strong> là một trong những máy tính điện tử đa năng đầu tiên trên thế giới.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>Nặng 30 tấn, chiếm diện tích 167m²</li>
+                        <li>Sử dụng 17.468 đèn chân không</li>
+                        <li>Tiêu thụ 150kW điện năng</li>
+                        <li>Có thể thực hiện 5.000 phép cộng/giây</li>
+                    </ul>
+                    <p>ENIAC đánh dấu bước ngoặt quan trọng trong lịch sử máy tính, mở ra kỷ nguyên máy tính điện tử.</p>
+                `,
+                speech: "ENIAC là máy tính điện tử đa năng đầu tiên trên thế giới, được hoàn thành năm 1946. Máy nặng 30 tấn, sử dụng hơn 17 nghìn đèn chân không và có thể thực hiện 5 nghìn phép tính mỗi giây. ENIAC đánh dấu bước ngoặt quan trọng, mở ra kỷ nguyên máy tính điện tử hiện đại."
+            },
+            microprocessor: {
+                title: "🔧 Intel 4004 (1971)",
+                image: `<div class="w-64 h-48 mx-auto rounded-lg shadow-lg bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center text-6xl">🔧</div>`,
+                content: `
+                    <p class="mb-4"><strong>Intel 4004</strong> là vi xử lý đầu tiên trên thế giới, cách mạng hóa ngành công nghệ.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>Kích thước chỉ 3mm x 4mm</li>
+                        <li>Chứa 2.300 transistor</li>
+                        <li>Tốc độ xử lý 740 kHz</li>
+                        <li>Công nghệ 10 micromet</li>
+                    </ul>
+                    <p>Vi xử lý đã làm cho máy tính trở nên nhỏ gọn hơn và mở đường cho sự phát triển của máy tính cá nhân.</p>
+                `,
+                speech: "Intel 4004 là vi xử lý đầu tiên trên thế giới, ra đời năm 1971. Mặc dù chỉ có kích thước 3 nhân 4 milimét và chứa 2300 transistor, nó đã cách mạng hóa ngành công nghệ. Vi xử lý này có tốc độ 740 kilohertz và đã mở đường cho sự phát triển của máy tính cá nhân."
+            },
+            pc: {
+                title: "🖥️ IBM PC (1981)",
+                image: `<div class="w-64 h-48 mx-auto rounded-lg shadow-lg bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center text-6xl">🖥️</div>`,
+                content: `
+                    <p class="mb-4"><strong>IBM Personal Computer</strong> đã đưa máy tính vào từng gia đình và văn phòng.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>Vi xử lý Intel 8088 4.77 MHz</li>
+                        <li>RAM 16KB có thể mở rộng đến 256KB</li>
+                        <li>Hệ điều hành MS-DOS</li>
+                        <li>Giá bán: $1,565 (tương đương $4,500 hiện tại)</li>
+                    </ul>
+                    <p>IBM PC đã tạo ra tiêu chuẩn cho máy tính cá nhân và khởi đầu cho kỷ nguyên máy tính đại chúng.</p>
+                `,
+                speech: "IBM Personal Computer ra đời năm 1981 đã đưa máy tính vào từng gia đình và văn phòng. Máy sử dụng vi xử lý Intel 8088 với tốc độ 4.77 megahertz, có 16 kilobyte RAM và chạy hệ điều hành MS-DOS. IBM PC đã tạo ra tiêu chuẩn cho máy tính cá nhân và khởi đầu kỷ nguyên máy tính đại chúng."
+            },
+            internet: {
+                title: "🌐 World Wide Web (1991)",
+                image: `<div class="w-64 h-48 mx-auto rounded-lg shadow-lg bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center text-6xl">🌐</div>`,
+                content: `
+                    <p class="mb-4"><strong>World Wide Web</strong> do Tim Berners-Lee phát minh đã kết nối thế giới lại với nhau.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>Website đầu tiên: info.cern.ch</li>
+                        <li>Giao thức HTTP và HTML</li>
+                        <li>Trình duyệt đầu tiên: WorldWideWeb</li>
+                        <li>Miễn phí cho toàn thế giới</li>
+                    </ul>
+                    <p>Internet đã thay đổi cách chúng ta giao tiếp, học tập, làm việc và giải trí, tạo ra một cuộc cách mạng thông tin toàn cầu.</p>
+                `,
+                speech: "World Wide Web được Tim Berners-Lee phát minh năm 1991 đã kết nối thế giới lại với nhau. Website đầu tiên có địa chỉ info.cern.ch, sử dụng giao thức HTTP và ngôn ngữ HTML. Internet đã thay đổi hoàn toàn cách chúng ta giao tiếp, học tập, làm việc và giải trí, tạo ra cuộc cách mạng thông tin toàn cầu."
+            },
+            mobile: {
+                title: "📱 Smartphone (2007)",
+                image: `<div class="w-64 h-48 mx-auto rounded-lg shadow-lg bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center text-6xl">📱</div>`,
+                content: `
+                    <p class="mb-4"><strong>iPhone đầu tiên</strong> đã định nghĩa lại khái niệm điện thoại thông minh.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>Màn hình cảm ứng đa điểm</li>
+                        <li>Kết nối Internet không dây</li>
+                        <li>App Store - cửa hàng ứng dụng</li>
+                        <li>Camera tích hợp chất lượng cao</li>
+                    </ul>
+                    <p>Smartphone đã biến máy tính thành thiết bị di động, cho phép mọi người truy cập thông tin và kết nối mọi lúc, mọi nơi.</p>
+                `,
+                speech: "iPhone đầu tiên ra mắt năm 2007 đã định nghĩa lại khái niệm điện thoại thông minh. Với màn hình cảm ứng đa điểm, kết nối Internet không dây và App Store, smartphone đã biến máy tính thành thiết bị di động, cho phép mọi người truy cập thông tin và kết nối mọi lúc, mọi nơi."
+            },
+            ai: {
+                title: "🤖 Trí tuệ nhân tạo (2010s)",
+                image: `<div class="w-64 h-48 mx-auto rounded-lg shadow-lg bg-gradient-to-br from-indigo-100 to-indigo-200 flex items-center justify-center text-6xl">🤖</div>`,
+                content: `
+                    <p class="mb-4"><strong>Trí tuệ nhân tạo</strong> đã phát triển mạnh mẽ với machine learning và deep learning.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>AlphaGo đánh bại kỳ thủ cờ vây thế giới</li>
+                        <li>Nhận dạng giọng nói và hình ảnh</li>
+                        <li>Xe tự lái và robot thông minh</li>
+                        <li>ChatGPT và AI tạo sinh</li>
+                    </ul>
+                    <p>AI đang thay đổi mọi lĩnh vực từ y tế, giáo dục đến giao thông, mở ra kỷ nguyên mới của công nghệ thông minh.</p>
+                `,
+                speech: "Trí tuệ nhân tạo phát triển mạnh mẽ từ thập niên 2010 với machine learning và deep learning. AI đã có những thành tựu đáng kinh ngạc như AlphaGo đánh bại kỳ thủ cờ vây thế giới, nhận dạng giọng nói và hình ảnh, xe tự lái và ChatGPT. AI đang thay đổi mọi lĩnh vực và mở ra kỷ nguyên công nghệ thông minh."
+            }
+        };
+
+        let currentSpeech = null;
+
+        function openModal(eventId) {
+            const modal = document.getElementById('modal');
+            const data = timelineData[eventId];
+            
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-image').innerHTML = data.image;
+            document.getElementById('modal-content').innerHTML = data.content;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Store current speech text
+            currentSpeech = data.speech;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            
+            // Stop any ongoing speech
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        function speakContent() {
+            if (!currentSpeech) return;
+            
+            // Stop any ongoing speech
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            
+            // Create speech synthesis
+            const utterance = new SpeechSynthesisUtterance(currentSpeech);
+            utterance.lang = 'vi-VN';
+            utterance.rate = 0.9; // Moderate speed for natural pronunciation
+            utterance.pitch = 1.4; // Higher pitch for female voice
+            
+            // Try to find Vietnamese female voice with priority order
+            const voices = window.speechSynthesis.getVoices();
+            
+            // Debug: log available voices
+            console.log('Available voices:', voices.map(v => `${v.name} (${v.lang}) - ${v.gender || 'unknown gender'}`));
+            
+            const vietnameseVoice = voices.find(voice => 
+                (voice.lang.includes('vi') || voice.lang.includes('VN')) && 
+                (voice.name.toLowerCase().includes('female') || 
+                 voice.name.toLowerCase().includes('woman') ||
+                 voice.name.toLowerCase().includes('linh') ||
+                 voice.name.toLowerCase().includes('mai') ||
+                 voice.name.toLowerCase().includes('hoa') ||
+                 voice.name.toLowerCase().includes('lan') ||
+                 voice.gender === 'female')
+            ) || voices.find(voice => 
+                voice.name.toLowerCase().includes('female') ||
+                voice.name.toLowerCase().includes('woman') ||
+                voice.gender === 'female'
+            );
+            
+            if (vietnameseVoice) {
+                utterance.voice = vietnameseVoice;
+                console.log('Selected voice:', vietnameseVoice.name);
+            } else {
+                // Force higher pitch if no female voice found
+                utterance.pitch = 1.6;
+                console.log('No female voice found, using high pitch');
+            }
+            
+            // Update button during speech
+            const speakBtn = document.getElementById('speak-btn');
+            const originalText = speakBtn.innerHTML;
+            speakBtn.innerHTML = '⏸️ Đang phát...';
+            speakBtn.disabled = true;
+            
+            utterance.onend = function() {
+                speakBtn.innerHTML = originalText;
+                speakBtn.disabled = false;
+            };
+            
+            utterance.onerror = function() {
+                speakBtn.innerHTML = originalText;
+                speakBtn.disabled = false;
+                alert('Xin lỗi, không thể phát âm thanh. Vui lòng thử lại.');
+            };
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Load voices when page loads
+        window.speechSynthesis.onvoiceschanged = function() {
+            // Voices are now loaded
+        };
+
+        // Ensure compatibility with iframe embedding
+        window.addEventListener('load', function() {
+            // Allow the page to be embedded in iframes
+            if (window.self !== window.top) {
+                console.log('Page is running inside an iframe');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96a4411e96231093',t:'MTc1NDM3NTUxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
